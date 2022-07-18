@@ -92,7 +92,7 @@ public class PersonajeServicio {
         if (respuesta.isPresent()) {
             Personaje personaje = respuesta.get();
             personajeRepo.delete(personaje);
-            System.out.println("Personaje " + personaje + " eliminado");
+       
         } else {
             throw new ErrorServicio("El personaje no se enccuentra en la DB");
         }
