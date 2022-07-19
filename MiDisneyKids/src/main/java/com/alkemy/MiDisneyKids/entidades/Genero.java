@@ -24,7 +24,7 @@ public class Genero {
     private String nombre; 
     
     @OneToOne
-    private Foto foto; 
+    private Foto fotoGenero; 
     
     @OneToMany
     private List<Pelicula> peliculas; 
