@@ -87,6 +87,9 @@ public class PeliculaServicio {
 
     }
 
+    
+    //--------------VALIDACIONES-------------------
+    
     public void validar(String titulo, Date fechaCreacion,
             EnumCalificacion calificacion) throws ErrorServicio {
 

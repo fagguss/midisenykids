@@ -99,6 +99,9 @@ public class PersonajeServicio {
 
     }
 
+    
+    //--------------VALIDACIONES-------------------
+    
     public void validar(String nombre, String edad, Double peso,
             String historia) throws ErrorServicio {
 
