@@ -1,29 +1,33 @@
 package com.alkemy.MiDisneyKids.servicios;
 
 import com.alkemy.MiDisneyKids.entidades.Personaje;
+import com.alkemy.MiDisneyKids.entidades.Foto;
 import com.alkemy.MiDisneyKids.entidades.Pelicula;
 import com.alkemy.MiDisneyKids.errores.ErrorServicio;
 import com.alkemy.MiDisneyKids.repositorios.PersonajeRepositorio;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class PersonajeServicio {
 
     @Autowired
     private PersonajeRepositorio personajeRepo;
+    @Autowired
+    private FotoServicio fotoServicio;
 
 //-----------------------CRUD------------------
-    
     @Transactional
     public void crear(String nombre, String edad, Double peso,
-            String historia) throws ErrorServicio {
+            String historia, MultipartFile archivo) throws ErrorServicio, IOException {
 
-        validar(nombre, edad, peso,historia); 
-            
+        validar(nombre, edad, peso, historia);
+
         Personaje personaje = new Personaje();
 
         personaje.setNombre(nombre);
@@ -31,13 +35,16 @@ public class PersonajeServicio {
         personaje.setPeso(peso);
         personaje.setHistoria(historia);
 
+        Foto foto = fotoServicio.guardar(archivo);
+        personaje.setFotoPersonaje(foto);
+
         personajeRepo.save(personaje);
 
     }
 
     @Transactional
     public Personaje buscarPersonajePorId(String id) throws ErrorServicio {
-        
+
         Optional<Personaje> respuesta = personajeRepo.findById(id);
 
         if (respuesta.isPresent()) {
@@ -59,20 +66,23 @@ public class PersonajeServicio {
 
     @Transactional
     public void modificar(String id, String nombre, String edad,
-            String historia, Double peso) throws ErrorServicio {
+            String historia, Double peso, MultipartFile archivo) throws ErrorServicio, IOException {
 
         Optional<Personaje> respuesta = personajeRepo.findById(id);
 
         if (respuesta.isPresent()) {
-            
-            validar(nombre, edad, peso,historia); 
-            
+
+            validar(nombre, edad, peso, historia);
+
             Personaje personaje = respuesta.get();
 
             personaje.setNombre(nombre);
             personaje.setEdad(edad);
             personaje.setHistoria(historia);
             personaje.setPeso(peso);
+
+            Foto foto = fotoServicio.guardar(archivo);
+            personaje.setFotoPersonaje(foto);
 
             personajeRepo.save(personaje);
 
@@ -92,16 +102,14 @@ public class PersonajeServicio {
         if (respuesta.isPresent()) {
             Personaje personaje = respuesta.get();
             personajeRepo.delete(personaje);
-       
+
         } else {
             throw new ErrorServicio("El personaje no se enccuentra en la DB");
         }
 
     }
 
-    
     //--------------VALIDACIONES-------------------
-    
     public void validar(String nombre, String edad, Double peso,
             String historia) throws ErrorServicio {
 

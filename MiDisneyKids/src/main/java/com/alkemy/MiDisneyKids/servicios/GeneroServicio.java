@@ -1,35 +1,40 @@
-
 package com.alkemy.MiDisneyKids.servicios;
 
+import com.alkemy.MiDisneyKids.entidades.Foto;
 import com.alkemy.MiDisneyKids.entidades.Genero;
 import com.alkemy.MiDisneyKids.errores.ErrorServicio;
 import com.alkemy.MiDisneyKids.repositorios.GeneroRepositorio;
 import com.alkemy.MiDisneyKids.repositorios.PeliculaRepositorio;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class GeneroServicio {
-    
+
     @Autowired
-    private GeneroRepositorio generoRepo; 
+    private GeneroRepositorio generoRepo;
+    @Autowired
+    private FotoServicio fotoServicio;
     @Autowired
     private PeliculaRepositorio peliculaRepo;
 
     //-----------------------CRUD------------------
-    
     @Transactional
-    public void crear(String nombre) throws ErrorServicio {
+    public void crear(String nombre, MultipartFile archivo) throws ErrorServicio, IOException {
 
         validar(nombre);
 
         Genero genero = new Genero();
 
         genero.setNombre(nombre);
-        
+        Foto foto = fotoServicio.guardar(archivo);
+        genero.setFotoGenero(foto);
+
         generoRepo.save(genero);
 
     }
@@ -43,7 +48,7 @@ public class GeneroServicio {
     }
 
     @Transactional
-    public void modificar(String id, String nombre) throws ErrorServicio {
+    public void modificar(String id, String nombre, MultipartFile archivo) throws ErrorServicio, IOException {
 
         Optional<Genero> respuesta = generoRepo.findById(id);
 
@@ -54,7 +59,9 @@ public class GeneroServicio {
             Genero genero = respuesta.get();
 
             genero.setNombre(nombre);
-            
+            Foto foto = fotoServicio.guardar(archivo);
+            genero.setFotoGenero(foto);
+
             generoRepo.save(genero);
 
             System.out.println("Genero " + genero + " editado en la DB");
@@ -81,7 +88,6 @@ public class GeneroServicio {
     }
 
     //--------------VALIDACIONES-------------------
-    
     public void validar(String nombre) throws ErrorServicio {
 
         if (nombre == null || nombre.isEmpty()) {
