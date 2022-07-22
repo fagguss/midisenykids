@@ -6,20 +6,25 @@ import com.alkemy.MiDisneyKids.servicios.PeliculaServicio;
 import com.alkemy.MiDisneyKids.servicios.PersonajeServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("")
 public class PortalControlador {
     
-    @Autowired
-    private PersonajeServicio personajeServicio; 
-
-    @Autowired
-    private PeliculaServicio peliculaServicio; 
-
-    @Autowired
-    private GeneroServicio generoServicio;
+//    @Autowired
+//    private PersonajeServicio personajeServicio; 
+//
+//    @Autowired
+//    private PeliculaServicio peliculaServicio; 
+//
+//    @Autowired
+//    private GeneroServicio generoServicio;
     
+    @GetMapping("")
+    public String index(){
+        return "index.html";
+    }
 
 }
