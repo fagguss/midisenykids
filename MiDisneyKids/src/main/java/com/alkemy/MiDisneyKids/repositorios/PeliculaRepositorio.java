@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PeliculaRepositorio extends JpaRepository<Pelicula, String> {
 
-    @Query("SELECT l FROM pelicula l WHERE l.id=:id")
-    public Personaje buscarPersonajePorId(@Param("Id") String id);
+    @Query("SELECT l FROM Pelicula l WHERE l.id=:id")
+    public Personaje buscarPersonajePorId(@Param("id") String id);
 }
