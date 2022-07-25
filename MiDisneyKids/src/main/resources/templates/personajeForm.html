@@ -1,54 +1,58 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Nuevo personaje</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-</head>
+    <head>
+        <title>Nuevo personaje</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    </head>
 
-<body>
-    <h1>Agrega un nuevo personaje</h1>
+    <body>
+        <h1>Agrega un nuevo personaje</h1>
 
-    <div class="input-group input-group-sm mb-3">
-        <span class="input-group-text" id="inputGroup-sizing-sm">Nombre</span>
-        <input type="text" class="form-control" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-sm">
-    </div>
-    <div>
-        <label for="formFile" class="form-label">Foto del personaje</label>
-        <input class="form-control" type="file" id="formFile">
-    </div>
-    <br>
-    <div class="input-group input-group-sm mb-3">
-        <span class="input-group-text" id="inputGroup-sizing-sm">Edad</span>
-        <input type="text" class="form-control" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-sm">
-    </div>
-    <br>
-    <div class="input-group input-group-sm mb-3">
-        <span class="input-group-text" id="inputGroup-sizing-sm">Peso</span>
-        <input type="text" class="form-control" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-sm">
-    </div>
-    <br>
-    <div class="input-group input-group-sm mb-3">
-        <span class="input-group-text" id="inputGroup-sizing-sm">Breve historia</span>
-        <input type="text" class="form-control" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-sm">
-    </div>
-    <br>
-    <div>
-        <select class="form-select" aria-label="Disabled select example" disabled>
-            <option selected>Elige la pelicula en la que aparece</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
-    </div>
+        <form action="/agregarPersonaje" method="POST" enctype="multipart/form-data"> 
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="nombre">Nombre</span>
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                       aria-describedby="inputGroup-sizing-sm" name="nombre">
+            </div>
+            <div>
+                <label for="fotoPersonaje" class="form-label">Foto del personaje</label>
+                <input class="form-control" type="file" id="fotoPersonaje"  name="fotoPersonaje">
+            </div>
+            <br>
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="edad">Edad</span>
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                       aria-describedby="inputGroup-sizing-sm"  name="edad" >
+            </div>
+            <br>
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="peso">Peso</span>
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                       aria-describedby="inputGroup-sizing-sm"  name="peso"> 
+            </div>
+            <br>
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text" id="historia">Breve historia</span>
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                       aria-describedby="inputGroup-sizing-sm"  name="historia">
+            </div>
+            <br>
+            <div>
+                <label for="lista" style='color: white'>Pelicula </label>
+                <input class="form-control" name="pelicula" list="peliculas" id="lista" placeholder="Busca las peliculas...">
+                <datalist id="peliculas">
+                    <option  th:each="pelicula : ${peliculas}" th:text="${pelicula}" th:value="${pelicula}" ></option>
+                </datalist>
+            </div>
+            <br>
+            <button class="boton" type="submit"> Guardar Personaje </button>
 
-</body>
+        </form>
+
+    </body>
 
 </html>
