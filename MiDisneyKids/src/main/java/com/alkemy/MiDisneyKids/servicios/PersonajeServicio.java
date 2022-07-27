@@ -65,7 +65,7 @@ public class PersonajeServicio {
     }
 
     @Transactional
-    public void modificar(String id, String nombre, String edad,
+    public Personaje modificar(String id, String nombre, String edad,
             String historia, Double peso, MultipartFile archivo) throws ErrorServicio, IOException {
 
         Optional<Personaje> respuesta = personajeRepo.findById(id);
@@ -87,6 +87,8 @@ public class PersonajeServicio {
             personajeRepo.save(personaje);
 
             System.out.println("Personaje " + personaje + " editado en la DB");
+            
+            return personaje; 
 
         } else {
             throw new ErrorServicio("El personaje que quiere modificar"
@@ -96,7 +98,7 @@ public class PersonajeServicio {
     }
 
     @Transactional
-    public void eliminar(String id, String nombre) throws ErrorServicio {
+    public void eliminar(String id) throws ErrorServicio {
 
         Optional<Personaje> respuesta = personajeRepo.findById(id);
         if (respuesta.isPresent()) {

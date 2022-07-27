@@ -55,7 +55,7 @@ public class PeliculaServicio {
     }
 
     @Transactional
-    public void modificar(String id, String titulo, Date fechaCreacion,
+        public Pelicula modificar(String id, String titulo, Date fechaCreacion,
             EnumCalificacion calificacion, MultipartFile archivo) throws ErrorServicio, IOException {
 
         Optional<Pelicula> respuesta = peliculaRepo.findById(id);
@@ -76,6 +76,8 @@ public class PeliculaServicio {
             peliculaRepo.save(pelicula);
 
             System.out.println("Pelicula " + pelicula + " editada en la DB");
+            
+            return pelicula; 
 
         } else {
             throw new ErrorServicio("La pelicula que quiere modificar"
@@ -85,7 +87,7 @@ public class PeliculaServicio {
     }
 
     @Transactional
-    public void eliminar(String id, String nombre) throws ErrorServicio {
+    public void eliminar(String id) throws ErrorServicio {
 
         Optional<Pelicula> respuesta = peliculaRepo.findById(id);
         if (respuesta.isPresent()) {
