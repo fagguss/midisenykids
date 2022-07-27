@@ -2,6 +2,7 @@ package com.alkemy.MiDisneyKids.servicios;
 
 import com.alkemy.MiDisneyKids.entidades.Pelicula;
 import com.alkemy.MiDisneyKids.entidades.Foto;
+import com.alkemy.MiDisneyKids.entidades.Personaje;
 import com.alkemy.MiDisneyKids.enumeraciones.EnumCalificacion;
 import com.alkemy.MiDisneyKids.errores.ErrorServicio;
 import com.alkemy.MiDisneyKids.repositorios.PeliculaRepositorio;
@@ -29,7 +30,7 @@ public class PeliculaServicio {
     
     @Transactional
     public void crear(String titulo, Date fechaCreacion,
-            EnumCalificacion calificacion, MultipartFile archivo) throws ErrorServicio, IOException {
+            EnumCalificacion calificacion, MultipartFile archivo, List<Personaje> personajes) throws ErrorServicio, IOException {
 
         validar(titulo, fechaCreacion, calificacion);
 
@@ -38,6 +39,7 @@ public class PeliculaServicio {
         pelicula.setTitulo(titulo);
         pelicula.setFechaCreacion(fechaCreacion);
         pelicula.setCalificacion(calificacion);
+        pelicula.setPersonajes(personajes);
         
         Foto foto=fotoServicio.guardar(archivo); 
         pelicula.setFotoPelicula(foto);
@@ -55,7 +57,7 @@ public class PeliculaServicio {
     }
 
     @Transactional
-    public void modificar(String id, String titulo, Date fechaCreacion,
+        public Pelicula modificar(String id, String titulo, Date fechaCreacion,
             EnumCalificacion calificacion, MultipartFile archivo) throws ErrorServicio, IOException {
 
         Optional<Pelicula> respuesta = peliculaRepo.findById(id);
@@ -76,6 +78,8 @@ public class PeliculaServicio {
             peliculaRepo.save(pelicula);
 
             System.out.println("Pelicula " + pelicula + " editada en la DB");
+            
+            return pelicula; 
 
         } else {
             throw new ErrorServicio("La pelicula que quiere modificar"
@@ -85,7 +89,7 @@ public class PeliculaServicio {
     }
 
     @Transactional
-    public void eliminar(String id, String nombre) throws ErrorServicio {
+    public void eliminar(String id) throws ErrorServicio {
 
         Optional<Pelicula> respuesta = peliculaRepo.findById(id);
         if (respuesta.isPresent()) {
