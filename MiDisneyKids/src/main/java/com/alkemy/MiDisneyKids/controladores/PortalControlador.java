@@ -69,10 +69,10 @@ public class PortalControlador {
     @PostMapping("/agregarPelicula")
     public String agregarPelicula(@RequestParam String titulo,
             @RequestParam MultipartFile archivo, @RequestParam Date fechaCreacion,
-            @RequestParam EnumCalificacion calificacion) {
+            @RequestParam EnumCalificacion calificacion, @RequestParam List<Personaje> personajes ) {
 
         try {
-            peliculaServicio.crear(titulo, fechaCreacion, calificacion, archivo);
+            peliculaServicio.crear(titulo, fechaCreacion, calificacion, archivo, personajes);
             System.out.println("Pelicula creada con exito");
 
         } catch (Exception e) {
