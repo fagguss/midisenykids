@@ -2,6 +2,7 @@ package com.alkemy.MiDisneyKids.servicios;
 
 import com.alkemy.MiDisneyKids.entidades.Pelicula;
 import com.alkemy.MiDisneyKids.entidades.Foto;
+import com.alkemy.MiDisneyKids.entidades.Personaje;
 import com.alkemy.MiDisneyKids.enumeraciones.EnumCalificacion;
 import com.alkemy.MiDisneyKids.errores.ErrorServicio;
 import com.alkemy.MiDisneyKids.repositorios.PeliculaRepositorio;
@@ -29,7 +30,7 @@ public class PeliculaServicio {
     
     @Transactional
     public void crear(String titulo, Date fechaCreacion,
-            EnumCalificacion calificacion, MultipartFile archivo) throws ErrorServicio, IOException {
+            EnumCalificacion calificacion, MultipartFile archivo, List<Personaje> personajes) throws ErrorServicio, IOException {
 
         validar(titulo, fechaCreacion, calificacion);
 
@@ -38,6 +39,7 @@ public class PeliculaServicio {
         pelicula.setTitulo(titulo);
         pelicula.setFechaCreacion(fechaCreacion);
         pelicula.setCalificacion(calificacion);
+        pelicula.setPersonajes(personajes);
         
         Foto foto=fotoServicio.guardar(archivo); 
         pelicula.setFotoPelicula(foto);

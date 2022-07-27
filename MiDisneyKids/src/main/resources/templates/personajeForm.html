@@ -42,11 +42,11 @@
             </div>
             <br>
             <div>
-                <label for="lista" style='color: white'>Pelicula </label>
-                <input class="form-control" name="pelicula" list="peliculas" id="lista" placeholder="Busca las peliculas...">
-                <datalist id="peliculas">
-                    <option  th:each="pelicula : ${peliculas}" th:text="${pelicula}" th:value="${pelicula}" ></option>
-                </datalist>
+                <label style='color: white'>Pelicula </label>
+                <!--                <input class="form-control" name="pelicula" list="peliculas" id="lista" placeholder="Busca las peliculas...">-->
+                <select  class="form-control" name="pelicula" >
+                    <option selected  th:each="pelicula : ${peliculas}" th:value="${pelicula.id}" th:text="${pelicula.getTitulo()}"></option>
+                </select> 
             </div>
             <br>
             <button class="boton" type="submit"> Guardar Personaje </button>
