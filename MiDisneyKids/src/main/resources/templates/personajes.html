@@ -1,16 +1,39 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Personajes</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+        <div>Personajes guardadas</div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">edad</th>
+                    <th scope="col">historia</th>
+                    <th scope="col">peso</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="personaje : ${personajes}">
+                    <td th:text="${personaje.nombre}"></td>
+                    <td th:text="${personaje.edad}"></td>
+                    <td th:text="${personaje.historia}"></td>
+                    <td th:text="${personaje.peso}"></td>
+                    <td th:text="${personaje.pelicula.titulo}"></td>
+
+                    <td>
+                        <a th:href="@{eliminar/} + ${personaje.id}" method="GET">
+                            <button class="btn btn-danger" type="submit">Eliminar</button>
+                        </a>
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
     </body>
 </html>
