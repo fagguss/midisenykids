@@ -54,11 +54,11 @@ public class PortalControlador {
 
     @PostMapping("/agregarPersonaje")
     public String agregarPersonaje(@RequestParam String nombre,
-            @RequestParam MultipartFile archivo, @RequestParam String edad,
-            @RequestParam Double peso, @RequestParam String historia) {
+            @RequestParam MultipartFile fotoPersonaje, @RequestParam String edad,
+            @RequestParam Double peso, @RequestParam String historia,@RequestParam List<Pelicula> peliculas) {
 
         try {
-            personajeServicio.crear(nombre, edad, peso, historia, archivo);
+            personajeServicio.crear(nombre, edad, peso, historia, fotoPersonaje, peliculas);
             System.out.println("Personaje creado con exito");
 
         } catch (Exception e) {

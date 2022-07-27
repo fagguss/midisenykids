@@ -6,8 +6,10 @@ import com.alkemy.MiDisneyKids.entidades.Pelicula;
 import com.alkemy.MiDisneyKids.errores.ErrorServicio;
 import com.alkemy.MiDisneyKids.repositorios.PersonajeRepositorio;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ public class PersonajeServicio {
 //-----------------------CRUD------------------
     @Transactional
     public void crear(String nombre, String edad, Double peso,
-            String historia, MultipartFile archivo) throws ErrorServicio, IOException {
+            String historia, MultipartFile fotoPersonaje, List<Pelicula> peliculas) throws ErrorServicio, IOException {
 
         validar(nombre, edad, peso, historia);
 
@@ -34,8 +36,10 @@ public class PersonajeServicio {
         personaje.setEdad(edad);
         personaje.setPeso(peso);
         personaje.setHistoria(historia);
+        personaje.setPeliculas(peliculas);
 
-        Foto foto = fotoServicio.guardar(archivo);
+
+        Foto foto = fotoServicio.guardar(fotoPersonaje);
         personaje.setFotoPersonaje(foto);
 
         personajeRepo.save(personaje);
