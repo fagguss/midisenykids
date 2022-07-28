@@ -20,11 +20,12 @@ public class Usuario {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    private String usuario;
+    private String nombre;
     @Column(unique = true)
     private String email;
     private String clave;
     @Enumerated(EnumType.STRING)
     private EnumRol rol;
+    private Boolean alta;
 
 }

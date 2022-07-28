@@ -85,7 +85,8 @@ public class UsuarioServicio implements UserDetailsService {
             throw new ErrorServicio("No se encontro el usuario deseado");
         }
     }
-    
+ 
+//-----------------------------ROLES------------------------
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);

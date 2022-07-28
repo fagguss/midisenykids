@@ -39,8 +39,25 @@ public class PortalControlador {
     @Autowired
     private PersonajeRepositorio personajeRepo;
 
+//-------------------INDEX--------------------------
     @GetMapping("/")
     public String index() {
+        return "index";
+    }
+
+    @GetMapping("/registro")
+    public String registro() {
+        return "registro";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+//-------------------INICIO--------------------------
+    @GetMapping("/inicio")
+    public String inicio() {
         return "inicio";
     }
 
@@ -55,7 +72,7 @@ public class PortalControlador {
     @PostMapping("/agregarPersonaje")
     public String agregarPersonaje(@RequestParam String nombre,
             @RequestParam MultipartFile fotoPersonaje, @RequestParam String edad,
-            @RequestParam Double peso, @RequestParam String historia,@RequestParam List<Pelicula> peliculas) {
+            @RequestParam Double peso, @RequestParam String historia, @RequestParam List<Pelicula> peliculas) {
 
         try {
             personajeServicio.crear(nombre, edad, peso, historia, fotoPersonaje, peliculas);
@@ -78,7 +95,7 @@ public class PortalControlador {
     @PostMapping("/agregarPelicula")
     public String agregarPelicula(@RequestParam String titulo,
             @RequestParam MultipartFile archivo, @RequestParam Date fechaCreacion,
-            @RequestParam EnumCalificacion calificacion, @RequestParam List<Personaje> personajes ) {
+            @RequestParam EnumCalificacion calificacion, @RequestParam List<Personaje> personajes) {
 
         try {
             peliculaServicio.crear(titulo, fechaCreacion, calificacion, archivo, personajes);
