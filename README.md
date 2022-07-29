@@ -1,5 +1,5 @@
 # midisenykids
-Alkemy Challenge backend
+Alkemy Challenge JAVA backend
 
 Documentacion del proceso del challange: https://docs.google.com/document/d/1PSVcpYJCGVhNLBLd1Q3zZBS4AJ3Tgb2VeBoiOA3-LCo/edit?usp=sharing
 
