@@ -45,6 +45,29 @@ public class PersonajeServicio {
         personajeRepo.save(personaje);
 
     }
+    
+//    @Transactional
+//    public void crear() throws ErrorServicio, IOException {
+//
+////        validar(nombre, edad, peso, historia);
+//
+//        Personaje personaje = new Personaje();
+//        Pelicula pelicula=new Pelicula(); 
+//
+//        personaje.setNombre("Dumbo");
+//        personaje.setEdad("5");
+//        personaje.setPeso(3.4);
+//        personaje.setHistoria("un elefante pequeño que es cruelmente apodado Dumbo (en inglés, dumb significa tanto «mudo» como, despectivamente, «tonto»), y que es ridiculizado por sus grandes orejas, aunque descubre que puede volar usándolas como alas.");
+//        personaje.setPeliculas((List<Pelicula>) pelicula);
+//        String fotoPersonaje="/image.png";
+//
+//        
+//        Foto foto = fotoServicio.guardar(fotoPersonaje);
+//        personaje.setFotoPersonaje(foto);
+//
+//        personajeRepo.save(personaje);
+//
+//    }
 
     @Transactional
     public Personaje buscarPersonajePorId(String id) throws ErrorServicio {
@@ -91,8 +114,8 @@ public class PersonajeServicio {
             personajeRepo.save(personaje);
 
             System.out.println("Personaje " + personaje + " editado en la DB");
-            
-            return personaje; 
+
+            return personaje;
 
         } else {
             throw new ErrorServicio("El personaje que quiere modificar"
