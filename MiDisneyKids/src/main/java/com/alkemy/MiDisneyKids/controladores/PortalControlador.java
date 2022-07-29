@@ -9,6 +9,7 @@ import com.alkemy.MiDisneyKids.enumeraciones.EnumCalificacion;
 import com.alkemy.MiDisneyKids.errores.ErrorServicio;
 import com.alkemy.MiDisneyKids.repositorios.PeliculaRepositorio;
 import com.alkemy.MiDisneyKids.repositorios.PersonajeRepositorio;
+import com.alkemy.MiDisneyKids.servicios.UsuarioServicio;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +38,9 @@ public class PortalControlador {
     private GeneroServicio generoServicio;
 
     @Autowired
+    private UsuarioServicio usuarioServicio;
+
+    @Autowired
     private PersonajeRepositorio personajeRepo;
 
 //-------------------INDEX--------------------------
@@ -48,6 +52,25 @@ public class PortalControlador {
     @GetMapping("/registro")
     public String registro() {
         return "registro";
+    }
+
+    @PostMapping("/registrar")
+    public String registrar(ModelMap model, @RequestParam String nombre,
+            @RequestParam String email, @RequestParam String clave) {
+        try {
+            usuarioServicio.crear(nombre, clave, email);
+
+            model.put("exito", "Usuario creado, ahora puede iniciar sesión :)");
+
+            return "inicio";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            model.put("error","Usuario no creado correctamente"); 
+            
+            return "resgistro"; 
+        }
+
     }
 
     @GetMapping("/login")
