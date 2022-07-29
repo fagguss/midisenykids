@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <h1>Inicio de sesion</h1>
+        </div>
+        <div>
+<!--            <div class="alert alert-danger" role="alert" th:if="${error != null}">
+                <p class="h5 fw-normal"  th:text="${error}" style="color: #000000"></p>
+            </div>-->
+
+            <form action="/logincheck" method="POST">
+                <label for="email">Correo Electronico</label>
+                <input required id="email" name="email" type="text" placeholder="email">
+                <label for="clave">Clave</label>
+                <input required id="clave" name="clave" type="password"
+                       placeholder="clave">
+                <input  type="submit" value="Ingresar">
+            </form>
+        </div>
+    </body>
+</html>

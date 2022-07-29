@@ -7,10 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@Data 
 public class Genero {
     
     @Id
@@ -21,7 +24,7 @@ public class Genero {
     private String nombre; 
     
     @OneToOne
-    private Foto foto; 
+    private Foto fotoGenero; 
     
     @OneToMany
     private List<Pelicula> peliculas; 

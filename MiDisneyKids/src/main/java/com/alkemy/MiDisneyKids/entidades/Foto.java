@@ -7,10 +7,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@Data 
 public class Foto {
 
     @Id

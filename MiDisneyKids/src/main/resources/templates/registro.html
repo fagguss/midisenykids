@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Resgistro</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <form action="/registrar" method="POST" enctype="multipart/form-data">
+                <label for="nombre">Nombre</label>
+                <input required type="text" placeholder="nombre" id="nombre" name="nombre">
+
+                <label for="email">Email</label>
+                <input required type="text" placeholder="email" id="email" name="email">
+
+                <label for="clave">Clave</label>
+                <input required type="password" placeholder="clave" id="clave" name="clave">
+
+                <button type="submit">Registrarse</button>
+            </form>
+        </div>
+    </body>
+</html>
