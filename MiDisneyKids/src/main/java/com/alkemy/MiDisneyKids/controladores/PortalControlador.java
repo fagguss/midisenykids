@@ -5,10 +5,12 @@ import com.alkemy.MiDisneyKids.servicios.PeliculaServicio;
 import com.alkemy.MiDisneyKids.servicios.PersonajeServicio;
 import com.alkemy.MiDisneyKids.entidades.Pelicula;
 import com.alkemy.MiDisneyKids.entidades.Personaje;
+import com.alkemy.MiDisneyKids.entidades.Usuario;
 import com.alkemy.MiDisneyKids.enumeraciones.EnumCalificacion;
 import com.alkemy.MiDisneyKids.errores.ErrorServicio;
 import com.alkemy.MiDisneyKids.repositorios.PeliculaRepositorio;
 import com.alkemy.MiDisneyKids.repositorios.PersonajeRepositorio;
+import com.alkemy.MiDisneyKids.repositorios.UsuarioRepositorio;
 import com.alkemy.MiDisneyKids.servicios.UsuarioServicio;
 import java.io.IOException;
 import java.util.Date;
@@ -17,6 +19,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,7 +46,10 @@ public class PortalControlador {
     @Autowired
     private PersonajeRepositorio personajeRepo;
 
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
 //-------------------INDEX--------------------------
+
     @GetMapping("/")
     public String index() {
         return "index";
@@ -55,21 +61,9 @@ public class PortalControlador {
     }
 
     @PostMapping("/registrar")
-    public String registrar(ModelMap model, @RequestParam String nombre,
-            @RequestParam String email, @RequestParam String clave) {
-        try {
-            usuarioServicio.crear(nombre, clave, email);
-
-            model.put("exito", "Usuario creado, ahora puede iniciar sesión :)");
-
-            return "inicio";
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-            model.put("error","Usuario no creado correctamente"); 
-            
-            return "resgistro"; 
-        }
+    public Usuario registrar(@RequestParam String nombre,
+            @RequestParam String email, @RequestParam String clave) throws Exception {
+            return usuarioServicio.crear(nombre, clave, email);
 
     }
 
@@ -202,7 +196,7 @@ public class PortalControlador {
 
     }
 
-    @GetMapping("/eliminar/{id}")
+    @DeleteMapping("/eliminar/{id}")
     public void eliminar(ModelMap model, @PathVariable("id") String id) throws ErrorServicio {
 
         Optional<Personaje> respuesta = personajeRepo.findById(id);

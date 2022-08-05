@@ -29,7 +29,7 @@ public class UsuarioServicio implements UserDetailsService {
     private UsuarioRepositorio usuarioRepositorio;
 
     @Transactional
-    public void crear(String nombre, String clave, String email) throws ErrorServicio, Exception {
+    public Usuario crear(String nombre, String clave, String email) throws ErrorServicio, Exception {
 
         validar(nombre, email, clave);
 
@@ -42,10 +42,12 @@ public class UsuarioServicio implements UserDetailsService {
         String claveEncriptada = new BCryptPasswordEncoder().encode(clave);
         usuario.setClave(claveEncriptada);
 
-        usuarioRepositorio.save(usuario);
+        return usuarioRepositorio.save(usuario);
 
 //        notificacionServicio.enviar("Bienvenido a BoxReview", "Te has registrado con éxito a BoxReview!!", usuario.getEmail());
     }
+    
+    
 
     public void iniciarSesion(String nombre, String clave) throws ErrorServicio {
 
